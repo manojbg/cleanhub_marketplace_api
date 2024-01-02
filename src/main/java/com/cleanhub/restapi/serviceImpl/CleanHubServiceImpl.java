@@ -2,6 +2,7 @@ package com.cleanhub.restapi.serviceImpl;
 
 import com.cleanhub.restapi.daoService.CompanyRepository;
 import com.cleanhub.restapi.daoService.ContractRepository;
+import com.cleanhub.restapi.dto.CompanyHistory;
 import com.cleanhub.restapi.entity.Company;
 import com.cleanhub.restapi.entity.Contract;
 import com.cleanhub.restapi.service.CleanHubService;
@@ -79,7 +80,8 @@ public class CleanHubServiceImpl implements CleanHubService {
                     getDate(node.get("startDate").asText()),
                     getDate(node.get("endDate").asText()),
                     getDate(node.get("createdAt").asText()),
-                    node.get("isFulfilled").asBoolean()
+                    node.get("isFulfilled").asBoolean(),
+                    node.get("type").asText()
             );
             contractRepository.save(contract);
         }
@@ -120,5 +122,20 @@ public class CleanHubServiceImpl implements CleanHubService {
         } catch (Exception e) {
             logger.error("Error fetching data: " + e.getMessage());
         }
+    }
+
+    @Override
+    public List<CompanyHistory> getCompanyHistory(String landingPageRoute){
+        List<CompanyHistory> histories = new ArrayList<>();
+        Company company = companyRepository.findByLandingPageRoute(landingPageRoute);
+        List<Contract> contracts = contractRepository.findByLandingPageRoute(landingPageRoute);
+        CompanyHistory history = new CompanyHistory();
+        history.setCompanyName(company.getCompanyName());
+        history.setLandingPageRoute(company.getLandingPageRoute());
+        history.setQuantity(company.getQuantity());
+        history.setState(company.getState());
+        history.setContracts(contracts);
+        histories.add(history);
+        return histories;
     }
 }

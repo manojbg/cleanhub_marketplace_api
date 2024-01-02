@@ -36,6 +36,8 @@ public class Contract {
     private double recoveredQuantity;
     @Column(name = "isFulfilled")
     private boolean isFulfilled;
+    @Column(name = "type")
+    private String type;
 
     public Contract() {
 
@@ -43,7 +45,7 @@ public class Contract {
 
     public Contract(UUID UUID, String landingPageRoute, double quantity,
                     double recoveredQuantity, String period, Date startDate, Date endDate,
-                    Date createdAt, boolean isFulfilled) {
+                    Date createdAt, boolean isFulfilled, String type) {
         this.UUID = UUID;
         this.landingPageRoute = landingPageRoute;
         this.quantity = quantity;
@@ -53,6 +55,7 @@ public class Contract {
         this.endDate = endDate;
         this.createdAt = createdAt;
         this.isFulfilled = isFulfilled;
+        this.type = type;
     }
 
 }

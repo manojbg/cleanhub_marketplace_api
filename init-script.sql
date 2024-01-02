@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS contracts (
     created_at TIMESTAMP,
     start_date DATE,
     end_date DATE,
+    type VARCHAR(50),
     period VARCHAR(255),
     quantity DOUBLE PRECISION,
     recovered_quantity DOUBLE PRECISION,

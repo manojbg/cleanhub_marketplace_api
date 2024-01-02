@@ -16,4 +16,8 @@ public interface CompanyRepository extends JpaRepository<Company, UUID> {
     @Transactional
     @Query("SELECT c FROM Company c WHERE c.contractStartDate BETWEEN :startDate AND :endDate ORDER BY c.quantity DESC")
     List<Company> findTopRecordsByQuantityAndDateRange(Date startDate, Date endDate, Pageable topX);
+
+    @Transactional
+    @Query("SELECT c FROM Company c WHERE c.landingPageRoute = :landingPageRoute")
+    Company findByLandingPageRoute(String landingPageRoute);
 }
